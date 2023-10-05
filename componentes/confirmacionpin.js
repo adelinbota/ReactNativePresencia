@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ConfirmacionPin = ({ route }) => {
-  const { codtrabajador, url, pin } = route.params;
+  const { codtrabajador, url, pin, usuario, codcliente, pass, opcion } = route.params;
   const [pins, setPins] = useState(['', '', '', '']);
   const [showPin, setShowPin] = useState(false);
   const [pinMatch, setPinMatch] = useState(true);
@@ -13,7 +13,7 @@ const ConfirmacionPin = ({ route }) => {
   const navigation = useNavigation();
 
   useEffect(() => {
-    alert("Url: " + url + "\nCódigo: " + codtrabajador + "\nPin: " + pin);
+    alert("Url: " + url + "\nCódigo trabajador: " + codtrabajador + "\nPin: " + pin + "\nUsuario: " + usuario + "\nContraseña: " + pass + "\nCliente: " + codcliente);
   }, []);
 
   const escribirPin = (text, index) => {
@@ -39,11 +39,11 @@ const ConfirmacionPin = ({ route }) => {
 
     if (fullPin === pin) {
       try {
-        await AsyncStorage.setItem('data', JSON.stringify({ codtrabajador, url, pin: fullPin }));
+        await AsyncStorage.setItem('data', JSON.stringify({ codtrabajador, url, pin: fullPin, usuario, pass, codcliente }));
       } catch (error) {
         console.error('Error al guardar los datos:', error);
       }
-      navigation.navigate('Fichaje');
+      navigation.navigate('Fichaje', { opcion });
     } else {
       setPinMatch(false);
       setPins(['', '', '', '']);

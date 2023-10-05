@@ -33,13 +33,13 @@ const Inicio = () => {
   const continuarClick = () => {
     if (selectedOption === 1) {
       if (trabajador.length === 5 && url) {
-        navigate.navigate('Pin', { codtrabajador: trabajador, url: url });
+        navigate.navigate('Pin', { codtrabajador: trabajador, url: url, opcion: selectedOption });
       } else {
         Alert.alert("Error", "Los datos no son correctos");
       }
     } else {
       if (cliente && usuario && pass && trabajador) {
-        navigate.navigate('Pin', { codtrabajador: trabajador, codcliente: cliente, pass: pass, usuario: usuario });
+        navigate.navigate('Pin', { codtrabajador: trabajador, codcliente: cliente, pass: pass, usuario: usuario, opcion: selectedOption });
       } else {
         Alert.alert("Error", "Los datos no son correctos");
       }

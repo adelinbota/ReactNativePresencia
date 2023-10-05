@@ -1,10 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, TextInput, TouchableOpacity, StyleSheet, Text } from 'react-native';
+import { TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { Text, Button, theme, Block } from 'galio-framework';
 
 const Pin = ({ route }) => {
-  const { codtrabajador, url } = route.params
+  const { codtrabajador, url, opcion, usuario, pass, codcliente } = route.params
   const [codes, setCodes] = useState(['', '', '', '']);
   const [showPin, setShowPin] = useState(false);
   const codeInputs = useRef([]);
@@ -12,6 +13,10 @@ const Pin = ({ route }) => {
 
   useEffect(() => {
     console.log(codtrabajador)
+    console.log(opcion)
+    console.log(usuario)
+    console.log(pass)
+    console.log(codcliente)
   }, [])
 
   const mostrarPin = () => {
@@ -31,14 +36,15 @@ const Pin = ({ route }) => {
 
   const crearPin = () => {
     const fullCode = codes.join('');
-    navigate.navigate('ConfirmacionPin', { codtrabajador, url, pin: fullCode });
+    navigate.navigate('ConfirmacionPin', { codtrabajador, url, pin: fullCode, opcion, usuario, pass, codcliente });
   };
 
   const isButtonDisabled = codes.some(code => code.length !== 1);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.codeContainer}>
+    <Block style={styles.container}>
+      <Text h3 bold style={styles.title}>CREA TU PIN</Text>
+      <Block style={styles.codeContainer}>
         {codes.map((code, index) => (
           <TextInput
             key={index}
@@ -51,18 +57,19 @@ const Pin = ({ route }) => {
             secureTextEntry={!showPin}
           />
         ))}
-      </View>
+      </Block>
       <TouchableOpacity style={styles.eyeButton} onPress={mostrarPin}>
         <Ionicons name={showPin ? 'eye-off-outline' : 'eye-outline'} size={24} color="black" />
       </TouchableOpacity>
-      <TouchableOpacity
+      <Button
+        color={theme.COLORS.INFO}
         style={[styles.button, isButtonDisabled && styles.disabledButton]}
         onPress={crearPin}
         disabled={isButtonDisabled}
       >
-        <Text style={styles.buttonText}>Crear Pin</Text>
-      </TouchableOpacity>
-    </View>
+        <Text style={styles.buttonText}>Crear</Text>
+      </Button>
+    </Block>
   );
 };
 
@@ -89,10 +96,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   button: {
-    backgroundColor: 'blue',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
+    flexDirection: "row",
+    width: '50%',
+    height: 40,
+    borderRadius: 10,
     marginTop: 20,
   },
   eyeButton: {
@@ -100,6 +107,9 @@ const styles = StyleSheet.create({
   },
   disabledButton: {
     backgroundColor: 'gray',
+  },
+  title: {
+    marginBottom: 45,
   },
   buttonText: {
     color: 'white',
