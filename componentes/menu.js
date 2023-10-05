@@ -2,6 +2,7 @@ import React from "react";
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Inicio from './inicio';
+import Principal from "./principal";
 import Pin from "./pin";
 import Fichaje from "./fichaje";
 import Autenticacion from "./autenticacion";
@@ -14,7 +15,8 @@ const Stack = createStackNavigator();
 export default function Menu() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Autenticacion'>
+      <Stack.Navigator initialRouteName='Principal'>
+        <Stack.Screen name="Principal" component={Principal} options={{ title: 'Principal', headerShown: false }} />
         <Stack.Screen name="Inicio" component={Inicio} options={{ title: 'Inicio', headerShown: false }} />
         <Stack.Screen name="Pin" component={Pin} options={{ title: 'Pin', headerShown: false }} />
         <Stack.Screen name="Fichaje" component={Fichaje} options={{ title: 'Fichaje', headerShown: false }} />

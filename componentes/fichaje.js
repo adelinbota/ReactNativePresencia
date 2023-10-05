@@ -49,7 +49,7 @@ const Fichaje = () => {
   const [longitud, setLongitud] = useState(null);
   const [URL, setURL] = useState("");
   const [codigo, setCodigo] = useState("");
-  const [pin, setPin] = useState("")
+  const [pin, setPin] = useState("");
 
   const navigate = useNavigation();
 
